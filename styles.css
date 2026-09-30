@@ -1,0 +1,405 @@
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: Arial, sans-serif;
+}
+
+
+body {
+ background: #111;
+ color: #fff;
+ overflow-x: hidden;
+}
+
+
+/* =========================
+  VIDEO BACKGROUND
+========================= */
+.video-background {
+ position: fixed;
+ inset: 0;
+ z-index: -1;
+ overflow: hidden;
+}
+
+
+#background-video {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+}
+
+
+/* =========================
+  HERO
+========================= */
+#hero {
+ text-align: center;
+ padding: 120px 20px 180px;
+}
+
+
+.hero-content {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 25px;
+ max-width: 800px;
+ margin: 0 auto;
+}
+
+
+.hero-gif {
+ width: 300px;
+ display: block;
+ margin: -50px auto 10px;
+ border-radius: 10px;
+}
+
+
+#hero p {
+ margin-bottom: 10px;
+ letter-spacing: 0.02em;
+ white-space: nowrap;
+}
+
+h1.page-title {
+  text-shadow: 0 0 15px rgba(128, 128, 128, 0.5);
+}
+
+h2.page-subtitle {
+  text-shadow: 0 0 10px rgba(128, 128, 128, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================
+  BUTTONS
+========================= */
+.cta-btn {
+ padding: 11px 30px;
+ background: rgba(255,255,255,0.85);
+ color: #111;
+ border-radius: 20px;
+ font-size: 1.1rem;
+ text-decoration: none;
+ transition: 0.3s;
+}
+
+
+.cta-btn:hover {
+ background: rgba(87, 208, 255, 0.9);
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 12px auto 0;
+}
+
+/* =========================
+  SOCIAL BUTTONS
+========================= */
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 8px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.16);
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: rgba(255,255,255,0.08);
+}
+
+.social-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.social-btn img {
+  width: 24px;
+  height: 24px;
+  display: block;
+  object-fit: contain;
+}
+
+.social-icon {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+#social-links .social-btn-behance,
+#social-links .social-btn-instagram,
+#social-links .social-btn-linkedin {
+  background: rgba(255,255,255,0.08);
+}
+
+
+/* =========================
+  HAMBURGER MENU (CLEAN SYSTEM)
+========================= */
+
+/* wrapper container */
+
+
+/* MAIN WRAPPER */
+
+
+/* MAIN WRAPPER */
+#menu {
+ position: fixed;
+ top: 25px;
+ right: 25px;
+ width: 60px;
+ height: 60px;
+ z-index: 1000;
+}
+
+/* BLACK CIRCLE DONT TOUCH ITS CENTERED */
+.menu-bg {
+ position: absolute;
+ width: 60px;
+ height: 60px;
+ background: #232222;
+ opacity: 0.95;
+ border-radius: 50%;
+ z-index: 1;
+ transition: transform 0.5s ease;
+}
+
+
+.menu-bg.active {
+ transform: scale(20);
+}
+
+
+/* HAMBURGER */
+#menu-bar {
+ position: absolute;
+ inset: 0;
+ margin: auto;
+
+
+ width: 30px;
+ height: 22px;
+
+
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+
+
+ z-index: 5;
+ cursor: pointer;
+}
+
+/* FORCE VISIBILITY */
+.bar {
+ width: 100%;
+ height: 3px;
+ background: #fff;
+ border-radius: 3px;
+ display: block;
+}
+
+
+/* X ANIMATION */
+#menu-bar.active #bar1 {
+ transform: rotate(-45deg) translate(-5px, 5px);
+}
+
+
+#menu-bar.active #bar2 {
+ opacity: 0;
+}
+
+
+#menu-bar.active #bar3 {
+ transform: rotate(45deg) translate(-5px, -5px);
+}
+
+
+/* NAV INSIDE CIRCLE */
+.nav {
+ position: fixed;
+ top: 25%;
+ right: 200px;
+ transform: translateY(-50%);
+
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+
+ opacity: 0;
+ pointer-events: none;
+ transition: 0.3s;
+ z-index: 2;
+}
+
+
+.nav.active {
+ opacity: 1;
+ pointer-events: auto;
+}
+
+/* TEXT SIZE INSIDE CIRCLE */
+.nav a {
+ color: white;
+ text-decoration: none;
+ font-size: 24px;
+ margin: 27px 0;
+ font-weight: bold;
+}
+
+
+/* =========================
+  CURSOR
+========================= */
+.cursor-shadow {
+ position: fixed;
+ width: 20px;
+ height: 20px;
+ border-radius: 50%;
+ background: rgba(255,255,255,0.6);
+ pointer-events: none;
+ z-index: 999;
+ transform: translate(-50%, -50%);
+ mix-blend-mode: overlay;
+ filter: blur(4px);
+}
+
+
+.cursor-shadow.grow {
+ transform: scale(2);
+}
+
+
+.cursor-particle {
+ position: fixed;
+ border-radius: 50%;
+ pointer-events: none;
+ animation: fadeOut 1.2s forwards;
+ z-index: 998;
+}
+
+
+@keyframes fadeOut {
+ to {
+   opacity: 0;
+   transform: scale(0.5);
+ }
+}
+
+
+/* =========================
+  FOOTER & WAVE
+========================= */
+footer {
+ text-align: center;
+ padding: 20px;
+ background: rgba(0, 0, 0, 0.8);
+ width: 100%;
+ clear: both;
+ position: relative;
+ z-index: 10;
+}
+
+footer p {
+ margin: 0;
+}
+
+#about-wave {
+ width: 100%;
+ clear: both;
+ position: relative;
+ z-index: 5;
+}
+
+.wave-svg path {
+  opacity: 0.8; /* change transparency here */
+}
+
+.wave-loop {
+  width: 100%;
+  height: 150px;
+  background-image: url('data:image/svg+xml,<svg width="1200" height="150" viewBox="0 0 1200 150" xmlns="http://www.w3.org/2000/svg"><path d="M0 50 Q150 0 300 50 T600 50 T900 50 T1200 50 V150 H0 Z" fill="rgba(0,0,0,0.8)"/></svg>');
+  background-repeat: repeat-x;
+  animation: waveMove 10s linear infinite;
+}
+
+@keyframes waveMove {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1200px 0;
+  }
+}
+/* =========================
+  MOBILE
+========================= */
+@media (max-width: 600px) {
+ #hero {
+   font-size: 1.4rem;
+   padding: 80px 10px 150px;
+ }
+
+
+ .hero-gif {
+   width: 200px;
+ }
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: background 0.35s ease, opacity 0.35s ease;
+  z-index: 9999;
+}
+
+.lightbox.show {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.85);
+  pointer-events: all;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 85%;
+  border-radius: 12px;
+  box-shadow: 0 12px 60px rgba(0,0,0,0.7);
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.lightbox.show img {
+  transform: scale(1);
+}
+

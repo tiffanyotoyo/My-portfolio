@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>3D Portfolio</title>
+ <link rel="stylesheet" href="styles.css" />
+ <style>
+   body {
+     margin: 0;
+     background: #000;
+     color: #fff;
+     font-family: Arial, sans-serif;
+     overflow-x: hidden;
+   }
+
+   /* Hero GIF Styling */
+   .hero-gif {
+     width: 450px;
+     margin: -65px auto;
+     display: block;
+     border-radius: 10px;
+     box-shadow: 0 0 0px #ffffff80;
+   }
+
+   /* Header */
+   header {
+     display: flex;
+     justify-content: space-between;
+     padding: 20px;
+     background-color: transparent;
+     z-index: 10;
+     position: relative;
+   }
+
+   /* Smooth Buttons */
+   .cta-btn {
+     border-radius: 12px;
+     padding: 10px 20px;
+     margin: 10px;
+     background: #fff;
+     color: #000;
+     text-decoration: none;
+     font-weight: bold;
+   }
+
+
+   /* Cursor */
+   .cursor-shadow {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 20px;
+     height: 20px;
+     border-radius: 50%;
+     pointer-events: none;
+     transform: translate(-50%, -50%);
+     background-color: rgba(255, 255, 255, 0.5);
+     z-index: 999;
+   }
+
+
+   .cursor-shadow.grow {
+     transform: scale(2);
+     background-color: rgba(255, 255, 255, 0.9);
+   }
+
+
+   .cursor-particle {
+     position: fixed;
+     border-radius: 50%;
+     opacity: 0.8;
+     pointer-events: none;
+     animation: fadeOut 1s forwards;
+     z-index: 998;
+   }
+
+
+   @keyframes fadeOut {
+     to {
+       opacity: 0;
+       transform: scale(0.5);
+     }
+   }
+
+
+   /* Hero Content */
+   .hero-content {
+     text-align: center;
+   }
+
+
+   /* Video Background */
+   .video-background {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: -1;
+     overflow: hidden;
+   }
+
+
+   .video-background video {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+   }
+ </style>
+</head>
+<body>
+
+
+ <!-- Hero Section -->
+ <section id="hero">
+   <div class="hero-content">
+     <img src="logo.gif" alt="Animated GIF" class="hero-gif" />
+     <p>3D ANIMATOR / CHARACTER RIGGER / VFX ARTIST</p>
+
+
+     <a href="3DandVFX.html" class="cta-btn">3D & VFX</a>
+     <a href="Photography.html" class="cta-btn">Photography</a>
+     <a href="Illustrations.html" class="cta-btn">Illustrations</a>
+     <a href="PencilArt.html" class="cta-btn">Pencil Art</a>
+     <a href="GameDev.html" class="cta-btn">Game Dev (COMING SOON)</a>
+   </div>
+ </section>
+ <div class="cursor-shadow"></div>
+
+
+ <!-- Background Video -->
+ <div class="video-background">
+   <video autoplay muted loop id="background-video">
+     <source src="Files/Website showreel SP.mp4" type="Video/mp4" />
+     Your browser does not support the video tag.
+   </video>
+ </div>
+
+
+
+     <!-- HAMBURGER ICON -->
+<header>
+
+
+ <div id="menu">
+
+
+   <div class="menu-bg" id="menu-bg"></div>
+
+
+   <div id="menu-bar">
+     <div class="bar" id="bar1"></div>
+     <div class="bar" id="bar2"></div>
+     <div class="bar" id="bar3"></div>
+   </div>
+
+
+   <nav class="nav" id="nav">
+     <a href="#hero">Home</a>
+     <a href="#about-wave">About</a>
+     <a href="#">Projects</a>
+     <a href="#">Contact</a>
+   </nav>
+
+
+ </div>
+
+
+</header>
+
+
+<!-- Social Links -->
+<section id="social-links">
+  <div class="social-buttons">
+    <a href="https://www.behance.net" class="social-btn social-btn-behance" target="_blank" rel="noreferrer" aria-label="Behance">
+      <img src="Logos/Be.png" alt="Behance logo" />
+    </a>
+    <a href="https://www.instagram.com" class="social-btn social-btn-instagram" target="_blank" rel="noreferrer" aria-label="Instagram">
+      <img src="Logos/Instagram.png" alt="Instagram logo" />
+    </a>
+    <a href="https://www.linkedin.com" class="social-btn social-btn-linkedin" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+      <img src="Logos/Linkedin.png" alt="LinkedIn logo" />
+    </a>
+  </div>
+</section>
+
+<section id="about-wave">
+  <div class="wave-loop"></div>
+</section>
+
+ <!-- Footer -->
+ <footer>
+   <p>&copy; 2025 Portfolio. Website coded by Tiffany Otoyo with Visual Studio Code. All Rights Reserved.</p>
+ </footer>
+
+
+ <!-- JavaScript -->
+ <script>
+const menu = document.getElementById("menu-bar");
+const menuBg = document.getElementById("menu-bg");
+const nav = document.getElementById("nav");
+
+
+menu.addEventListener("click", () => {
+ menu.classList.toggle("active");
+ menuBg.classList.toggle("active");
+ nav.classList.toggle("active");
+});
+
+
+
+
+   // Cursor Logic
+   const cursor = document.querySelector(".cursor-shadow");
+   const hoverElements = document.querySelectorAll("a, button, .cta-btn");
+
+
+   let mouseX = 0, mouseY = 0;
+   let cursorX = 0, cursorY = 0;
+   let cursorVisible = false;
+   let overButton = false;
+   let lastMoveTime = Date.now();
+
+
+   document.addEventListener("mousemove", (e) => {
+     mouseX = e.clientX;
+     mouseY = e.clientY;
+     lastMoveTime = Date.now();
+     if (!overButton) {
+       createParticle(mouseX, mouseY);
+     }
+   });
+
+
+   hoverElements.forEach((el) => {
+     el.addEventListener("mouseenter", () => {
+       cursor.style.display = "block";
+       cursor.classList.add("grow");
+       cursorVisible = true;
+       overButton = true;
+     });
+     el.addEventListener("mouseleave", () => {
+       cursor.style.display = "none";
+       cursor.classList.remove("grow");
+       cursorVisible = false;
+       overButton = false;
+     });
+   });
+
+
+   function animateCursor() {
+     if (cursorVisible) {
+       cursorX += (mouseX - cursorX) * 0.9;
+       cursorY += (mouseY - cursorY) * 0.9;
+       const scale = cursor.classList.contains("grow") ? 2 : 1;
+       cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(${scale})`;
+     }
+
+     if (Date.now() - lastMoveTime > 2000) {
+       document.querySelectorAll('.cursor-particle').forEach(p => p.remove());
+     }
+
+     requestAnimationFrame(animateCursor);
+   }
+
+
+   function createParticle(x, y) {
+     const particle = document.createElement("div");
+     particle.classList.add("cursor-particle");
+
+
+     const size = Math.random() * 8 + 4;
+     particle.style.width = `${size}px`;
+     particle.style.height = `${size}px`;
+
+
+     particle.style.left = `${x + (Math.random() - 0.5) * 40}px`;
+     particle.style.top = `${y + (Math.random() - 0.5) * 40}px`;
+     particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+
+
+     document.body.appendChild(particle);
+     setTimeout(() => particle.remove(), 1000);
+   }
+
+
+   animateCursor();
+ </script>
+</body>
+</html>
+

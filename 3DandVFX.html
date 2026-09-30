@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D & VFX Projects</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      body {
+        background: #05060b;
+        color: #f5f7fb;
+      }
+
+      .page-header {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 28px 32px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand-link {
+        color: #8be5ff;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.32em;
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      .page-nav {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .page-nav a {
+        color: rgba(245,247,251,0.78);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.2s ease, opacity 0.2s ease;
+      }
+
+      .page-nav a:hover,
+      .page-nav a.active {
+        color: #8be5ff;
+        opacity: 1;
+      }
+
+      .main-panel {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 32px 120px;
+      }
+
+      .hero-panel {
+        display: grid;
+        gap: 24px;
+        margin-bottom: 64px;
+        text-align: center;
+      }
+
+      .eyebrow-label {
+        color: #6fcfff;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        font-size: 0.82rem;
+      }
+
+      .hero-panel h1 {
+        font-size: clamp(3rem, 5vw, 5.2rem);
+        line-height: 0.96;
+        letter-spacing: -0.05em;
+        margin: 0;
+        max-width: 870px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-panel p {
+        max-width: 720px;
+        margin: 0 auto;
+        color: #b8c4d8;
+        font-size: 1.02rem;
+        line-height: 1.9;
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 26px;
+      }
+
+      .project-card {
+        position: relative;
+        overflow: hidden;
+        min-height: 280px;
+        border-radius: 30px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.22);
+        transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        cursor: pointer;
+      }
+
+      .project-card:hover {
+        transform: translateY(-12px);
+        border-color: rgba(138,229,255,0.45);
+        box-shadow: 0 42px 92px rgba(0, 0, 0, 0.3);
+      }
+
+      .project-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top left, rgba(44, 197, 255, 0.16), transparent 24%),
+                    radial-gradient(circle at bottom right, rgba(164, 95, 255, 0.12), transparent 20%);
+        pointer-events: none;
+      }
+
+      .project-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 38%, rgba(2,8,20,0.92) 100%);
+        pointer-events: none;
+      }
+
+      .card-tag {
+        position: absolute;
+        top: 22px;
+        left: 22px;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(138,229,255,0.28);
+        background: rgba(12,22,39,0.72);
+        color: #8be5ff;
+        font-size: 0.82rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .card-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 32px;
+        z-index: 1;
+      }
+
+      .card-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 16px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: rgba(139,229,255,0.14);
+        color: #8be5ff;
+        font-size: 0.91rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        width: fit-content;
+      }
+
+      .project-card:hover .card-action {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .card-title {
+        margin: 0;
+        font-size: 1.85rem;
+        line-height: 1.05;
+      }
+
+      .card-description {
+        margin: 14px 0 0;
+        color: #b7c2d8;
+        font-size: 1rem;
+        line-height: 1.7;
+        max-width: 88%;
+      }
+
+      .card-link {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+      }
+
+      footer {
+        text-align: center;
+        padding: 28px 32px 34px;
+        color: rgba(255,255,255,0.58);
+      }
+
+      @media (max-width: 860px) {
+        .page-header {
+          flex-direction: column;
+          align-items: flex-start;
+          padding-top: 20px;
+        }
+
+        .page-nav {
+          gap: 18px;
+          margin-top: 18px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .main-panel {
+          padding: 40px 20px 80px;
+        }
+
+        .hero-panel h1 {
+          font-size: 2.8rem;
+        }
+
+        .card-content {
+          padding: 24px;
+        }
+      }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <a class="brand-link" href="index.html">Tiffany O.</a>
+        <nav class="page-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="3D&VFX.html" class="active">3D & VFX</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="main-panel">
+        <section class="hero-panel">
+            <span class="eyebrow-label">3D & VFX</span>
+            <h1>Hover over each project to reveal details, then click to open the PDF case study.</h1>
+            <p>Minimal, refined project cards for your 3D and visual effects work. This page is designed to feel clean, modern, and easy to navigate like the reference site.</p>
+        </section>
+
+        <section class="project-grid">
+            <article class="project-card">
+                <a class="card-link" href="Files/character-motion-reel.pdf" target="_blank" rel="noopener noreferrer"></a>
+                <span class="card-tag">PDF</span>
+                <div class="card-content">
+                    <h2 class="card-title">Character Motion Reel</h2>
+                    <p class="card-description">A polished showcase of character animation, rigging interplay, and cinematic poses for film and game work.</p>
+                    <span class="card-action">View PDF</span>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="card-link" href="Files/environment-study.pdf" target="_blank" rel="noopener noreferrer"></a>
+                <span class="card-tag">PDF</span>
+                <div class="card-content">
+                    <h2 class="card-title">Environment Study</h2>
+                    <p class="card-description">A world-building breakdown featuring lighting, materials, and atmospheric composition for immersive scenes.</p>
+                    <span class="card-action">View PDF</span>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="card-link" href="Files/vfx-breakdown.pdf" target="_blank" rel="noopener noreferrer"></a>
+                <span class="card-tag">PDF</span>
+                <div class="card-content">
+                    <h2 class="card-title">VFX Breakdown</h2>
+                    <p class="card-description">Detailed notes on compositing, simulation, and FX work used to create seamless cinematic visuals.</p>
+                    <span class="card-action">View PDF</span>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="card-link" href="Files/simulation-tests.pdf" target="_blank" rel="noopener noreferrer"></a>
+                <span class="card-tag">PDF</span>
+                <div class="card-content">
+                    <h2 class="card-title">Simulation Tests</h2>
+                    <p class="card-description">Cleanly presented physics and particle simulations to illustrate technical skill and creative direction.</p>
+                    <span class="card-action">View PDF</span>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My 3D Portfolio. All rights reserved.</p>
+    </footer>
+</body>
+</html>

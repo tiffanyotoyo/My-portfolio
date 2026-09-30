@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photography Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Text 'Photography' colour*/
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #bddaf5 0%, #e7ede6 55%, #fafdfb 100%);
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Homepage Icon Top Left */
+    .home-link {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Homepage Icon */
+    .home-link:hover {
+      background: rgba(39, 147, 229, 0.16);
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 3rem;
+      margin: 20px auto;
+      letter-spacing: 1px;
+      max-width: 900px;
+    }
+      /* Bourder gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(180px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      /* Colour of gallery bourder 2 */
+      background: rgba(255, 255, 255, 0.725);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      /* Outside box shadow */ 
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+    }
+
+    @media (max-width: 1180px) {
+      .gallery {
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
+      }
+    }
+
+    @media (max-width: 940px) {
+      .gallery {
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .gallery {
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+      }
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    
+    .description {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 16px;
+      background: rgba(81, 81, 81, 0.7);
+      /* Colour of description text */
+      color: #ffffff;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      font-size: 0.95rem;
+      line-height: 0.8;
+    }
+
+    .gallery-item:hover .description {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Flag banner styles */
+    .flag-banner {
+      width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+      padding: 12px 0;
+      margin: 18px auto;
+      background: rgba(255,255,255,0.18);
+      border-radius: 12px;
+      max-width: 1200px;
+      backdrop-filter: blur(6px);
+    }
+
+    .flag-track {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      will-change: transform;
+      animation: scroll-left 18s linear infinite;
+    }
+
+    .flag-item {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 32px;
+      overflow: hidden;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 8px 24px rgba(24, 88, 173, 0.12);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .flag-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .flag-banner {
+      box-shadow: 0 0 32px rgba(86, 150, 242, 0.18), inset 0 1px 0 rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.35);
+      background: linear-gradient(90deg, rgba(255,255,255,0.22), rgba(255,255,255,0.12));
+    }
+
+
+  </style>
+</head>
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <img id="lightbox-img" src="" alt="">
+</div>
+<body>
+  <header>
+    <a class="home-link" href="index.html" aria-label="Home">🏠</a>
+  </header>
+
+  <h1 class="page-title">PHOTOGRAPHY</h1>
+  <h2 class="page-subtitle">A COLLECTION OF MY PHOTOGRAPHY WORK FROM AROUND THE WORLD.</h2>
+
+  <!-- Flag banner: inserted below subtitle and above gallery -->
+  <section class="flag-banner" aria-label="World flags scrolling banner">
+    <div class="flag-track" id="flag-track" aria-hidden="false">
+      <!-- Flags will be injected here by JS -->
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="gallery-item">
+      <img src="Photography/Photography/1.png" alt="Photo 1" loading="lazy">
+      <div class="description">Vysoke Tatry, Slovakia.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/2.png" alt="Photo 2" loading="lazy">
+      <div class="description">Barcelone Spain.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/3.png" alt="Photo 3" loading="lazy">
+      <div class="description">Croatia.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/4.png" alt="Photo 4" loading="lazy">
+      <div class="description">Florence, Italy.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/5.png" alt="Photo 5" loading="lazy">
+      <div class="description">Croatia.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/6.png" alt="Photo 6" loading="lazy">
+      <div class="description">Barcelona, Spain.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/7.png" alt="Photo 7" loading="lazy">
+      <div class="description">South London.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/8.png" alt="Photo 8" loading="lazy">
+      <div class="description">Lake Plitvice, Croatia.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/9.png" alt="Photo 9" loading="lazy">
+      <div class="description">Canary Wharf, London.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/10.png" alt="Photo 10" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/11.png" alt="Photo 11" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/12.png" alt="Photo 12" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/13.png" alt="Photo 13" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/14.png" alt="Photo 14" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+      <div class="gallery-item">
+      <img src="Photography/Photography/15.png" alt="Photo 15" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/16.png" alt="Photo 16" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/17.png" alt="Photo 17" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/18.png" alt="Photo 18" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/19.png" alt="Photo 19" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/20.png" alt="Photo 20" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/21.png" alt="Photo 21" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/22.png" alt="Photo 22" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/23.png" alt="Photo 23" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/24.png" alt="Photo 24" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/25.png" alt="Photo 25" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/26.png" alt="Photo 26" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/27.png" alt="Photo 27" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/28.png" alt="Photo 28" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/29.png" alt="Photo 29" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/30.png" alt="Photo 30" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/31.png" alt="Photo 31" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/32.png" alt="Photo 32" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/33.png" alt="Photo 33" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/34.png" alt="Photo 34" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/35.png" alt="Photo 35" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/36.png" alt="Photo 36" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/37.png" alt="Photo 37" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/38.png" alt="Photo 38" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/39.png" alt="Photo 39" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Photography/Photography/40.png" alt="Photo 40" loading="lazy">
+      <div class="description">Soft morning light on a floral scene.</div>
+    </div>
+
+    <!-- Add more items here up to 50 by copying these blocks -->
+  </section>
+
+<div id="lightbox">
+  <span id="close-lightbox">&times;</span>
+  <img id="lightbox-img" src="">
+
+</div>
+<!-- Script: build flag banner and initialise lightbox -->
+<script>
+  // Build and animate the flag banner
+  (function() {
+    const track = document.getElementById('flag-track');
+    if (!track) return;
+
+    const createFlagItem = (code, name) => {
+      const item = document.createElement('div');
+      item.className = 'flag-item';
+      const img = document.createElement('img');
+      img.src = `https://flagcdn.com/w40/${code}.png`;
+      img.alt = `${name} flag`;
+      img.loading = 'lazy';
+      item.appendChild(img);
+      return item;
+    };
+
+    const fillTrack = countries => {
+      track.innerHTML = '';
+      const items = countries.map(country => createFlagItem(country.code, country.name));
+      items.forEach(item => track.appendChild(item));
+      items.forEach(item => track.appendChild(item.cloneNode(true)));
+
+      const containerWidth = track.parentElement.offsetWidth || window.innerWidth;
+      while (track.scrollWidth < containerWidth * 2) {
+        items.forEach(item => track.appendChild(item.cloneNode(true)));
+      }
+
+      const duration = Math.max(14, Math.round(track.children.length * 0.15));
+      track.style.animationDuration = `${duration}s`;
+    };
+
+    const fallbackFlags = [
+      {code: 'us', name: 'United States'},
+      {code: 'gb', name: 'United Kingdom'},
+      {code: 'fr', name: 'France'},
+      {code: 'de', name: 'Germany'},
+      {code: 'jp', name: 'Japan'},
+      {code: 'br', name: 'Brazil'},
+      {code: 'in', name: 'India'},
+      {code: 'cn', name: 'China'},
+      {code: 'za', name: 'South Africa'},
+      {code: 'au', name: 'Australia'},
+      {code: 'ca', name: 'Canada'},
+      {code: 'es', name: 'Spain'},
+      {code: 'it', name: 'Italy'},
+      {code: 'nl', name: 'Netherlands'},
+      {code: 'se', name: 'Sweden'},
+      {code: 'kr', name: 'South Korea'},
+      {code: 'mx', name: 'Mexico'},
+      {code: 'ng', name: 'Nigeria'},
+      {code: 'eg', name: 'Egypt'},
+      {code: 'nz', name: 'New Zealand'}
+    ];
+
+    fillTrack(fallbackFlags);
+
+    fetch('https://restcountries.com/v3.1/all')
+      .then(res => res.json())
+      .then(data => {
+        const countries = data
+          .map(country => ({
+            code: (country.cca2 || '').toLowerCase(),
+            name: country.name && country.name.common ? country.name.common : ''
+          }))
+          .filter(country => country.code.length === 2)
+          .sort((a, b) => a.name.localeCompare(b.name));
+
+        if (countries.length) {
+          fillTrack(countries);
+        }
+      })
+      .catch(() => {
+        // keep fallback flags if the API fails
+      });
+  })();
+
+  // Lightbox behaviour
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+
+  document.querySelectorAll(".gallery-item img").forEach(img => {
+    img.addEventListener("click", () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add("show");
+    });
+  });
+
+  // Click anywhere outside the image to close
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      lightbox.classList.remove("show");
+    }
+  });
+</script>
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+  <img id="lightbox-img" src="" alt="zoomed">
+</div>
+</body>
+</html>
+<parameter name="filePath">/Users/tiffanyotoyo/Documents/My-portfolio:/Photography.html
