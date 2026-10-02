@@ -3,146 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Photography Portfolio</title>
+  <title>Photography | Tiffany Otoyo</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Text 'Photography' colour*/
-    body {
-      margin: 0;
-      background: linear-gradient(180deg, #bddaf5 0%, #e7ede6 55%, #fafdfb 100%);
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* Homepage Icon Top Left */
-    .home-link {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #fff;
-      text-decoration: none;
-      font-size: 1.5rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    /* Homepage Icon */
-    .home-link:hover {
-      background: rgba(39, 147, 229, 0.16);
-    }
-
-    .page-title {
-      text-align: center;
-      font-size: 3rem;
-      margin: 20px auto;
-      letter-spacing: 1px;
-      max-width: 900px;
-    }
-      /* Bourder gallery */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(180px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto 60px;
-      /* Colour of gallery bourder 2 */
-      background: rgba(255, 255, 255, 0.725);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      /* Outside box shadow */ 
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
-    }
-
-    @media (max-width: 1180px) {
-      .gallery {
-        grid-template-columns: repeat(4, minmax(180px, 1fr));
-      }
-    }
-
-    @media (max-width: 940px) {
-      .gallery {
-        grid-template-columns: repeat(3, minmax(180px, 1fr));
-      }
-    }
-
-    @media (max-width: 680px) {
-      .gallery {
-        grid-template-columns: repeat(2, minmax(180px, 1fr));
-      }
-    }
-
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-      display: block;
-    }
-    
-    
-    .description {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 16px;
-      background: rgba(81, 81, 81, 0.7);
-      /* Colour of description text */
-      color: #ffffff;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      font-size: 0.95rem;
-      line-height: 0.8;
-    }
-
-    .gallery-item:hover .description {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Flag banner styles */
+    /* Scrolling flag banner */
     .flag-banner {
-      width: 100%;
       overflow: hidden;
-      box-sizing: border-box;
       padding: 12px 0;
-      margin: 18px auto;
-      background: rgba(255,255,255,0.18);
-      border-radius: 12px;
-      max-width: 1200px;
-      backdrop-filter: blur(6px);
+      margin: 0 0 40px;
+      border: 1px solid rgba(139, 229, 255, 0.18);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
     }
 
     .flag-track {
@@ -156,16 +27,11 @@
 
     .flag-item {
       flex: 0 0 auto;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 32px;
+      width: 44px;
+      height: 30px;
       overflow: hidden;
-      border-radius: 6px;
-      background: rgba(255,255,255,0.88);
-      box-shadow: 0 8px 24px rgba(24, 88, 173, 0.12);
-      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .flag-item img {
@@ -179,206 +45,258 @@
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
-    .flag-banner {
-      box-shadow: 0 0 32px rgba(86, 150, 242, 0.18), inset 0 1px 0 rgba(255,255,255,0.55);
-      border: 1px solid rgba(255,255,255,0.35);
-      background: linear-gradient(90deg, rgba(255,255,255,0.22), rgba(255,255,255,0.12));
+
+    @media (prefers-reduced-motion: reduce) {
+      .flag-track { animation: none; }
     }
-
-
   </style>
 </head>
-<!-- Lightbox -->
-<div id="lightbox" class="lightbox">
-  <img id="lightbox-img" src="" alt="">
-</div>
-<body>
-  <header>
-    <a class="home-link" href="index.html" aria-label="Home">🏠</a>
+<body class="sub-page">
+  <!-- Photo viewer -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <header class="page-header">
+    <a class="brand-link" href="index.html">Tiffany O.</a>
+    <nav class="page-nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="3DandVFX.html">3D &amp; VFX</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <h1 class="page-title">PHOTOGRAPHY</h1>
-  <h2 class="page-subtitle">A COLLECTION OF MY PHOTOGRAPHY WORK FROM AROUND THE WORLD.</h2>
+  <main class="sub-main wide">
+    <h1>Photography</h1>
+    <p class="sub-lead">A collection of my photography work from around the world.</p>
 
-  <!-- Flag banner: inserted below subtitle and above gallery -->
-  <section class="flag-banner" aria-label="World flags scrolling banner">
-    <div class="flag-track" id="flag-track" aria-hidden="false">
-      <!-- Flags will be injected here by JS -->
-    </div>
-  </section>
+    <section class="flag-banner" aria-label="World flags scrolling banner">
+      <div class="flag-track" id="flag-track"></div>
+    </section>
 
-  <section class="gallery">
-    <div class="gallery-item">
-      <img src="Photography/Photography/1.png" alt="Photo 1" loading="lazy">
-      <div class="description">Vysoke Tatry, Slovakia.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/2.png" alt="Photo 2" loading="lazy">
-      <div class="description">Barcelone Spain.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/3.png" alt="Photo 3" loading="lazy">
-      <div class="description">Croatia.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/4.png" alt="Photo 4" loading="lazy">
-      <div class="description">Florence, Italy.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/5.png" alt="Photo 5" loading="lazy">
-      <div class="description">Croatia.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/6.png" alt="Photo 6" loading="lazy">
-      <div class="description">Barcelona, Spain.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/7.png" alt="Photo 7" loading="lazy">
-      <div class="description">South London.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/8.png" alt="Photo 8" loading="lazy">
-      <div class="description">Lake Plitvice, Croatia.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/9.png" alt="Photo 9" loading="lazy">
-      <div class="description">Canary Wharf, London.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/10.png" alt="Photo 10" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/11.png" alt="Photo 11" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/12.png" alt="Photo 12" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/13.png" alt="Photo 13" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/14.png" alt="Photo 14" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-      <div class="gallery-item">
-      <img src="Photography/Photography/15.png" alt="Photo 15" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/16.png" alt="Photo 16" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/17.png" alt="Photo 17" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/18.png" alt="Photo 18" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/19.png" alt="Photo 19" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/20.png" alt="Photo 20" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/21.png" alt="Photo 21" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/22.png" alt="Photo 22" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/23.png" alt="Photo 23" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/24.png" alt="Photo 24" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/25.png" alt="Photo 25" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/26.png" alt="Photo 26" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/27.png" alt="Photo 27" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/28.png" alt="Photo 28" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/29.png" alt="Photo 29" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/30.png" alt="Photo 30" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/31.png" alt="Photo 31" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/32.png" alt="Photo 32" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/33.png" alt="Photo 33" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/34.png" alt="Photo 34" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/35.png" alt="Photo 35" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/36.png" alt="Photo 36" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/37.png" alt="Photo 37" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/38.png" alt="Photo 38" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/39.png" alt="Photo 39" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
-    <div class="gallery-item">
-      <img src="Photography/Photography/40.png" alt="Photo 40" loading="lazy">
-      <div class="description">Soft morning light on a floral scene.</div>
-    </div>
+    <!-- HOW TO EDIT THE GALLERY:
+         Each photo is one <figure> block. To add a caption, put it in a
+         <figcaption>Your caption</figcaption> line under the </button>.
+         To add a photo, copy a whole <figure>...</figure> block and change the image path. -->
+    <section class="gallery-grid" aria-label="Photography gallery">
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Vysoke Tatry, Slovakia">
+          <img src="Photography/Photography/1.png" alt="Vysoke Tatry, Slovakia" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Vysoke Tatry, Slovakia.</figcaption>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Barcelone Spain">
+          <img src="Photography/Photography/2.png" alt="Barcelone Spain" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Barcelone Spain.</figcaption>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Croatia">
+          <img src="Photography/Photography/3.png" alt="Croatia" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Croatia.</figcaption>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Florence, Italy">
+          <img src="Photography/Photography/4.png" alt="Florence, Italy" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Florence, Italy.</figcaption>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Croatia">
+          <img src="Photography/Photography/5.png" alt="Croatia" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Croatia.</figcaption>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Barcelona, Spain">
+          <img src="Photography/Photography/6.png" alt="Barcelona, Spain" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Barcelona, Spain.</figcaption>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: South London">
+          <img src="Photography/Photography/7.png" alt="South London" loading="lazy" decoding="async">
+        </button>
+        <figcaption>South London.</figcaption>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Lake Plitvice, Croatia">
+          <img src="Photography/Photography/8.png" alt="Lake Plitvice, Croatia" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Lake Plitvice, Croatia.</figcaption>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Canary Wharf, London">
+          <img src="Photography/Photography/9.png" alt="Canary Wharf, London" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Canary Wharf, London.</figcaption>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 10">
+          <img src="Photography/Photography/10.png" alt="Photograph 10" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 11">
+          <img src="Photography/Photography/11.png" alt="Photograph 11" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 12">
+          <img src="Photography/Photography/12.png" alt="Photograph 12" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 13">
+          <img src="Photography/Photography/13.png" alt="Photograph 13" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 14">
+          <img src="Photography/Photography/14.png" alt="Photograph 14" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 15">
+          <img src="Photography/Photography/15.png" alt="Photograph 15" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 16">
+          <img src="Photography/Photography/16.png" alt="Photograph 16" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 17">
+          <img src="Photography/Photography/17.png" alt="Photograph 17" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 18">
+          <img src="Photography/Photography/18.png" alt="Photograph 18" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 19">
+          <img src="Photography/Photography/19.png" alt="Photograph 19" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 20">
+          <img src="Photography/Photography/20.png" alt="Photograph 20" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 21">
+          <img src="Photography/Photography/21.png" alt="Photograph 21" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 22">
+          <img src="Photography/Photography/22.png" alt="Photograph 22" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 23">
+          <img src="Photography/Photography/23.png" alt="Photograph 23" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 24">
+          <img src="Photography/Photography/24.png" alt="Photograph 24" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 25">
+          <img src="Photography/Photography/25.png" alt="Photograph 25" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 26">
+          <img src="Photography/Photography/26.png" alt="Photograph 26" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 27">
+          <img src="Photography/Photography/27.png" alt="Photograph 27" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 28">
+          <img src="Photography/Photography/28.png" alt="Photograph 28" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 29">
+          <img src="Photography/Photography/29.png" alt="Photograph 29" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 30">
+          <img src="Photography/Photography/30.png" alt="Photograph 30" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 31">
+          <img src="Photography/Photography/31.png" alt="Photograph 31" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 32">
+          <img src="Photography/Photography/32.png" alt="Photograph 32" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 33">
+          <img src="Photography/Photography/33.png" alt="Photograph 33" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 34">
+          <img src="Photography/Photography/34.png" alt="Photograph 34" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 35">
+          <img src="Photography/Photography/35.png" alt="Photograph 35" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 36">
+          <img src="Photography/Photography/36.png" alt="Photograph 36" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 37">
+          <img src="Photography/Photography/37.png" alt="Photograph 37" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 38">
+          <img src="Photography/Photography/38.png" alt="Photograph 38" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 39">
+          <img src="Photography/Photography/39.png" alt="Photograph 39" loading="lazy" decoding="async">
+        </button>
+      </figure>
+      <figure>
+        <button class="photo-btn" type="button" aria-label="View larger: Photograph 40">
+          <img src="Photography/Photography/40.png" alt="Photograph 40" loading="lazy" decoding="async">
+        </button>
+      </figure>
+    </section>
+  </main>
 
-    <!-- Add more items here up to 50 by copying these blocks -->
-  </section>
+  <footer>
+    <p>&copy; 2026 Tiffany Otoyo. All rights reserved.</p>
+  </footer>
 
-<div id="lightbox">
-  <span id="close-lightbox">&times;</span>
-  <img id="lightbox-img" src="">
-
-</div>
-<!-- Script: build flag banner and initialise lightbox -->
-<script>
+  <script>
   // Build and animate the flag banner
   (function() {
     const track = document.getElementById('flag-track');
@@ -455,28 +373,29 @@
       });
   })();
 
-  // Lightbox behaviour
+  // Photo viewer: click a photo to enlarge, click anywhere or press Esc to close
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
 
-  document.querySelectorAll(".gallery-item img").forEach(img => {
-    img.addEventListener("click", () => {
+  const closeLightbox = () => {
+    lightbox.classList.remove("show");
+    lightbox.setAttribute("aria-hidden", "true");
+  };
+
+  document.querySelectorAll(".photo-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const img = btn.querySelector("img");
       lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
       lightbox.classList.add("show");
+      lightbox.setAttribute("aria-hidden", "false");
     });
   });
 
-  // Click anywhere outside the image to close
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) {
-      lightbox.classList.remove("show");
-    }
+  lightbox.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
   });
-</script>
-<!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox">
-  <img id="lightbox-img" src="" alt="zoomed">
-</div>
+  </script>
 </body>
 </html>
-<parameter name="filePath">/Users/tiffanyotoyo/Documents/My-portfolio:/Photography.html

@@ -16,8 +16,10 @@
 
    /* Hero GIF Styling */
    .hero-gif {
-     width: 450px;
-     margin: -65px auto;
+     --gif-w: min(450px, 85vw);
+     width: var(--gif-w);
+     max-width: 100%;
+     margin: calc(var(--gif-w) * -0.144) auto;
      display: block;
      border-radius: 10px;
      box-shadow: 0 0 0px #ffffff80;
@@ -107,6 +109,33 @@
      height: 100%;
      object-fit: cover;
    }
+
+   /* Phones: keep everything inside the screen and centred */
+   html {
+     overflow-x: hidden;
+   }
+
+   @media (max-width: 600px) {
+     #hero {
+       padding: 90px 16px 120px;
+       font-size: 1rem;
+     }
+
+     #hero p {
+       white-space: normal;
+       text-align: center;
+       font-size: 0.95rem;
+       line-height: 1.5;
+       max-width: 280px;
+     }
+
+     .cta-btn {
+       padding: 11px 24px;
+       margin: 0;
+       font-size: 1rem;
+       text-align: center;
+     }
+   }
  </style>
 </head>
 <body>
@@ -131,8 +160,8 @@
 
  <!-- Background Video -->
  <div class="video-background">
-   <video autoplay muted loop id="background-video">
-     <source src="Files/Website showreel SP.mp4" type="Video/mp4" />
+   <video autoplay muted loop playsinline webkit-playsinline preload="auto" id="background-video">
+     <source src="Files/Website%20showreel%20SP.mp4" type="video/mp4" />
      Your browser does not support the video tag.
    </video>
  </div>
@@ -158,9 +187,9 @@
 
    <nav class="nav" id="nav">
      <a href="#hero">Home</a>
-     <a href="#about-wave">About</a>
-     <a href="#">Projects</a>
-     <a href="#">Contact</a>
+     <a href="about.html">About</a>
+     <a href="3DandVFX.html">Projects</a>
+     <a href="contact.html">Contact</a>
    </nav>
 
 
@@ -173,13 +202,13 @@
 <!-- Social Links -->
 <section id="social-links">
   <div class="social-buttons">
-    <a href="https://www.behance.net" class="social-btn social-btn-behance" target="_blank" rel="noreferrer" aria-label="Behance">
+    <a href="https://www.behance.net/gallery/197468023/MarginaliaAlice" class="social-btn social-btn-behance" target="_blank" rel="noreferrer" aria-label="Behance">
       <img src="Logos/Be.png" alt="Behance logo" />
     </a>
-    <a href="https://www.instagram.com" class="social-btn social-btn-instagram" target="_blank" rel="noreferrer" aria-label="Instagram">
+    <a href="https://www.instagram.com/teeotoyo" class="social-btn social-btn-instagram" target="_blank" rel="noreferrer" aria-label="Instagram">
       <img src="Logos/Instagram.png" alt="Instagram logo" />
     </a>
-    <a href="https://www.linkedin.com" class="social-btn social-btn-linkedin" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+    <a href="https://www.linkedin.com/in/tiffany-otoyo-21a8a9214/" class="social-btn social-btn-linkedin" target="_blank" rel="noreferrer" aria-label="LinkedIn">
       <img src="Logos/Linkedin.png" alt="LinkedIn logo" />
     </a>
   </div>
@@ -191,12 +220,26 @@
 
  <!-- Footer -->
  <footer>
-   <p>&copy; 2025 Portfolio. Website coded by Tiffany Otoyo with Visual Studio Code. All Rights Reserved.</p>
+   <p>&copy; 2026 Portfolio. Website coded by Tiffany Otoyo with Visual Studio Code. All Rights Reserved.</p>
  </footer>
 
 
  <!-- JavaScript -->
  <script>
+// Background video: some phones (Low Power Mode, data saver) block autoplay,
+// so try again on the first touch.
+const bgVideo = document.getElementById("background-video");
+if (bgVideo) {
+ bgVideo.muted = true;
+ const startVideo = () => {
+   const attempt = bgVideo.play();
+   if (attempt && attempt.catch) attempt.catch(() => {});
+ };
+ startVideo();
+ document.addEventListener("touchstart", startVideo, { once: true, passive: true });
+ document.addEventListener("click", startVideo, { once: true });
+}
+
 const menu = document.getElementById("menu-bar");
 const menuBg = document.getElementById("menu-bg");
 const nav = document.getElementById("nav");

@@ -403,3 +403,291 @@ footer p {
   transform: scale(1);
 }
 
+
+
+/* =========================
+  SUB PAGES
+  (About, Contact, Pencil Art, Illustrations, Game Dev)
+========================= */
+.sub-page {
+  background: #05060b;
+  color: #f5f7fb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand-link {
+  color: #8be5ff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.page-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.page-nav a {
+  color: rgba(245, 247, 251, 0.78);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.page-nav a:hover,
+.page-nav a.active {
+  color: #8be5ff;
+}
+
+.brand-link:focus-visible,
+.page-nav a:focus-visible,
+.contact-list a:focus-visible {
+  outline: 2px solid #8be5ff;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.sub-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 32px 100px;
+}
+
+.sub-main h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+
+.sub-lead {
+  color: #b8c4d8;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+/* Empty image slots. Put an <img> inside a .tile and it fills the box. */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.tile {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px dashed rgba(139, 229, 255, 0.35);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(245, 247, 251, 0.5);
+  font-size: 0.95rem;
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* About page */
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.about-layout .tile {
+  aspect-ratio: 4 / 5;
+}
+
+.about-layout .sub-lead {
+  margin-bottom: 20px;
+}
+
+/* Contact page */
+.contact-list {
+  list-style: none;
+  display: grid;
+  gap: 16px;
+  font-size: 1.1rem;
+}
+
+.contact-list span {
+  display: inline-block;
+  min-width: 110px;
+  color: rgba(245, 247, 251, 0.55);
+}
+
+.contact-list a {
+  color: #8be5ff;
+  text-decoration: none;
+}
+
+.contact-list a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 860px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 560px) {
+  .sub-main {
+    padding: 48px 20px 72px;
+  }
+}
+
+
+
+/* =========================
+  PHONE FIXES
+========================= */
+
+/* Wave: smaller on phones so it looks the same shape, and fills the screen edge to edge */
+@media (max-width: 600px) {
+  #about-wave {
+    overflow: hidden;
+  }
+
+  .wave-loop {
+    background-size: 600px 150px;
+    animation-name: waveMoveSmall;
+  }
+}
+
+@keyframes waveMoveSmall {
+  from { background-position: 0 0; }
+  to { background-position: 600px 0; }
+}
+
+/* Menu: on phones the bubble grows into a compact panel instead of a huge circle */
+@media (max-width: 600px), (max-height: 500px) {
+  .menu-bg {
+    top: 0;
+    right: 0;
+    transition: width 0.4s ease, height 0.4s ease, border-radius 0.4s ease;
+  }
+
+  .menu-bg.active {
+    transform: none;
+    width: 250px;
+    height: 285px;
+    border-radius: 30px;
+    opacity: 1;
+  }
+
+  .nav {
+    top: 92px;
+    right: 25px;
+    width: 250px;
+    transform: none;
+    transition: opacity 0.3s ease 0.15s;
+  }
+
+  .nav a {
+    font-size: 22px;
+    margin: 12px 0;
+  }
+}
+
+
+/* =========================
+  PHOTO GALLERY (Photography page, reusable for other galleries)
+========================= */
+.sub-main.wide {
+  max-width: 1240px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.gallery-grid figure {
+  margin: 0;
+}
+
+.photo-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.photo-btn img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  transition: opacity 0.25s ease;
+}
+
+.photo-btn:hover img {
+  opacity: 0.82;
+}
+
+.photo-btn:focus-visible {
+  outline: 2px solid #8be5ff;
+  outline-offset: 3px;
+}
+
+.gallery-grid figcaption {
+  padding-top: 8px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(245, 247, 251, 0.65);
+}
+
+@media (max-width: 1000px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
