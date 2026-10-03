@@ -248,17 +248,32 @@
       .cursor-glow.on { opacity: 1; }
       .page-header, .main-panel, footer { position: relative; z-index: 1; }
 
-      /* Spinning wireframe cube */
-      .cube-scene {
+      /* Draggable wireframe cube.
+         .cube-slot holds its place in the hero; .cube-scene is fixed and
+         glides between the slot and a small dock in the corner as you scroll. */
+      .cube-slot {
         width: 120px; height: 120px;
         margin: 0 auto 36px;
-        perspective: 600px;
       }
+      .cube-scene {
+        position: fixed;
+        top: 0; left: 0;
+        width: 120px; height: 120px;
+        perspective: 600px;
+        z-index: 5;
+        cursor: grab;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        transform-origin: 0 0;
+        will-change: transform;
+      }
+      .cube-scene.dragging { cursor: grabbing; }
+      .cube-scene:focus-visible { outline: 2px solid #8be5ff; outline-offset: 8px; border-radius: 12px; }
       .cube {
         position: relative;
         width: 100%; height: 100%;
         transform-style: preserve-3d;
-        animation: cube-spin 14s linear infinite;
       }
       .cube span {
         position: absolute;
@@ -273,10 +288,6 @@
       .cube span:nth-child(4) { transform: rotateY(270deg) translateZ(60px); }
       .cube span:nth-child(5) { transform: rotateX(90deg)  translateZ(60px); }
       .cube span:nth-child(6) { transform: rotateX(-90deg) translateZ(60px); }
-      @keyframes cube-spin {
-        from { transform: rotateX(-24deg) rotateY(0deg); }
-        to   { transform: rotateX(-24deg) rotateY(360deg); }
-      }
 
       .scroll-hint {
         color: rgba(245,247,251,0.5);
@@ -317,13 +328,16 @@
       .reveal.in { opacity: 1; transform: none; }
 
       @media (prefers-reduced-motion: reduce) {
-        .cube, .scroll-hint { animation: none; }
+        .scroll-hint { animation: none; }
         .reveal { opacity: 1; transform: none; transition: none; }
       }
     </style>
 </head>
 <body>
     <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+    <div class="cube-scene" id="cube-scene" role="img" aria-label="Interactive 3D cube. Drag to spin it.">
+        <div class="cube" id="cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
     <header class="page-header">
         <a class="brand-link" href="index.html">Tiffany O.</a>
         <nav class="page-nav">
@@ -336,13 +350,11 @@
 
     <main class="main-panel">
         <section class="hero-panel">
-            <div class="cube-scene" aria-hidden="true">
-                <div class="cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-            </div>
+            <div class="cube-slot" id="cube-slot"></div>
             <span class="eyebrow-label">3D & VFX</span>
             <h1>Hover over each project to reveal details, then click to open the PDF case study.</h1>
             <p>Minimal, refined project cards for your 3D and visual effects work. This page is designed to feel clean, modern, and easy to navigate like the reference site.</p>
-            <span class="scroll-hint">Scroll down &amp; dive in</span>
+            <span class="scroll-hint">Drag the cube &middot; Scroll down &amp; dive in</span>
         </section>
 
         <section class="project-grid">
@@ -397,6 +409,92 @@
     </footer>
 
     <script>
+
+      // ---------- Draggable cube that follows you down the page ----------
+      (function () {
+        const scene = document.getElementById("cube-scene");
+        const cube = document.getElementById("cube");
+        const slot = document.getElementById("cube-slot");
+        if (!scene || !cube || !slot) return;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        let rx = -24, ry = 30;        // current rotation (degrees)
+        let vx = 0, vy = 0;           // spin speed from dragging (inertia)
+        let dragging = false, lastX = 0, lastY = 0;
+        let lastScroll = window.scrollY;
+        const idleSpin = reduce ? 0 : 0.25; // slow spin when left alone
+
+        // Position: sits in the hero, then docks in the bottom-right corner
+        let px = 0, py = 0, ps = 1, ready = false;
+        const DOCK_SCALE = 0.55;
+        const targetPos = () => {
+          const r = slot.getBoundingClientRect();
+          const docked = r.top < 70 || r.bottom < 0;
+          if (docked) {
+            const size = 120 * DOCK_SCALE;
+            return { x: window.innerWidth - size - 18, y: window.innerHeight - size - 18, s: DOCK_SCALE };
+          }
+          return { x: r.left, y: r.top, s: 1 };
+        };
+
+        scene.addEventListener("pointerdown", (e) => {
+          dragging = true;
+          lastX = e.clientX; lastY = e.clientY;
+          vx = vy = 0;
+          scene.classList.add("dragging");
+          scene.setPointerCapture(e.pointerId);
+          e.preventDefault();
+        });
+        scene.addEventListener("pointermove", (e) => {
+          if (!dragging) return;
+          const dx = e.clientX - lastX, dy = e.clientY - lastY;
+          lastX = e.clientX; lastY = e.clientY;
+          ry += dx * 0.6;
+          rx -= dy * 0.6;
+          vy = dx * 0.6; vx = -dy * 0.6;
+        });
+        const stop = () => { dragging = false; scene.classList.remove("dragging"); };
+        scene.addEventListener("pointerup", stop);
+        scene.addEventListener("pointercancel", stop);
+
+        // Keyboard: arrow keys turn the cube
+        scene.tabIndex = 0;
+        scene.addEventListener("keydown", (e) => {
+          const step = 18;
+          if (e.key === "ArrowLeft")  { ry -= step; e.preventDefault(); }
+          if (e.key === "ArrowRight") { ry += step; e.preventDefault(); }
+          if (e.key === "ArrowUp")    { rx += step; e.preventDefault(); }
+          if (e.key === "ArrowDown")  { rx -= step; e.preventDefault(); }
+        });
+
+        const frame = () => {
+          if (!dragging) {
+            // let a flick coast to a stop, then drift back to the slow idle spin
+            ry += vy; rx += vx;
+            vy *= 0.94; vx *= 0.94;
+            if (Math.abs(vy) < 0.02) vy = 0;
+            if (Math.abs(vx) < 0.02) vx = 0;
+            if (!vy && !vx) ry += idleSpin;
+          }
+          // scrolling also turns the cube
+          if (!reduce) {
+            const d = window.scrollY - lastScroll;
+            ry += d * 0.35;
+          }
+          lastScroll = window.scrollY;
+
+          cube.style.transform = "rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg)";
+
+          const t = targetPos();
+          if (!ready) { px = t.x; py = t.y; ps = t.s; ready = true; }
+          else if (reduce) { px = t.x; py = t.y; ps = t.s; }
+          else { px += (t.x - px) * 0.14; py += (t.y - py) * 0.14; ps += (t.s - ps) * 0.14; }
+          scene.style.transform = "translate(" + px.toFixed(1) + "px," + py.toFixed(1) + "px) scale(" + ps.toFixed(3) + ")";
+          requestAnimationFrame(frame);
+        };
+        requestAnimationFrame(frame);
+      })();
+
       (function () {
         const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
