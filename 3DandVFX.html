@@ -97,7 +97,7 @@
       .project-card {
         position: relative;
         overflow: hidden;
-        min-height: 280px;
+        min-height: 360px;
         border-radius: 30px;
         border: 1px solid rgba(255,255,255,0.08);
         background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
@@ -152,7 +152,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        padding: 32px;
+        padding: 72px 32px 32px;
         z-index: 1;
       }
 
@@ -228,31 +228,126 @@
         }
 
         .card-content {
-          padding: 24px;
+          padding: 68px 24px 24px;
         }
+      }
+
+      /* ---------- Interactive 3D touches ---------- */
+      .cursor-glow {
+        position: fixed;
+        top: 0; left: 0;
+        width: 520px; height: 520px;
+        margin: -260px 0 0 -260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(44,197,255,0.16), rgba(164,95,255,0.08) 45%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .cursor-glow.on { opacity: 1; }
+      .page-header, .main-panel, footer { position: relative; z-index: 1; }
+
+      /* Spinning wireframe cube */
+      .cube-scene {
+        width: 120px; height: 120px;
+        margin: 0 auto 36px;
+        perspective: 600px;
+      }
+      .cube {
+        position: relative;
+        width: 100%; height: 100%;
+        transform-style: preserve-3d;
+        animation: cube-spin 14s linear infinite;
+      }
+      .cube span {
+        position: absolute;
+        inset: 0;
+        border: 1.5px solid rgba(139,229,255,0.75);
+        background: rgba(139,229,255,0.04);
+        box-shadow: 0 0 22px rgba(44,197,255,0.18) inset;
+      }
+      .cube span:nth-child(1) { transform: rotateY(0deg)   translateZ(60px); }
+      .cube span:nth-child(2) { transform: rotateY(90deg)  translateZ(60px); }
+      .cube span:nth-child(3) { transform: rotateY(180deg) translateZ(60px); }
+      .cube span:nth-child(4) { transform: rotateY(270deg) translateZ(60px); }
+      .cube span:nth-child(5) { transform: rotateX(90deg)  translateZ(60px); }
+      .cube span:nth-child(6) { transform: rotateX(-90deg) translateZ(60px); }
+      @keyframes cube-spin {
+        from { transform: rotateX(-24deg) rotateY(0deg); }
+        to   { transform: rotateX(-24deg) rotateY(360deg); }
+      }
+
+      .scroll-hint {
+        color: rgba(245,247,251,0.5);
+        font-size: 0.82rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        animation: hint-bob 2.2s ease-in-out infinite;
+      }
+      @keyframes hint-bob {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(6px); }
+      }
+
+      /* Cards tilt in 3D toward the pointer (set by script) */
+      .project-grid { perspective: 1200px; }
+      .project-card {
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+      .project-card.tilting { transition: border-color 0.35s ease, box-shadow 0.35s ease; }
+      .project-card .shine {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.14), transparent 45%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .project-card:hover .shine { opacity: 1; }
+
+      /* Reveal as you scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal.in { opacity: 1; transform: none; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .cube, .scroll-hint { animation: none; }
+        .reveal { opacity: 1; transform: none; transition: none; }
       }
     </style>
 </head>
 <body>
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
     <header class="page-header">
         <a class="brand-link" href="index.html">Tiffany O.</a>
         <nav class="page-nav">
             <a href="index.html">Home</a>
-            <a href="about.html">About</a>
             <a href="3DandVFX.html" class="active" aria-current="page">3D &amp; VFX</a>
+            <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
         </nav>
     </header>
 
     <main class="main-panel">
         <section class="hero-panel">
+            <div class="cube-scene" aria-hidden="true">
+                <div class="cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
             <span class="eyebrow-label">3D & VFX</span>
             <h1>Hover over each project to reveal details, then click to open the PDF case study.</h1>
             <p>Minimal, refined project cards for your 3D and visual effects work. This page is designed to feel clean, modern, and easy to navigate like the reference site.</p>
+            <span class="scroll-hint">Scroll down &amp; dive in</span>
         </section>
 
         <section class="project-grid">
-            <article class="project-card">
+            <article class="project-card reveal">
+                <span class="shine" aria-hidden="true"></span>
                 <a class="card-link" href="Files/character-motion-reel.pdf" target="_blank" rel="noopener noreferrer"></a>
                 <span class="card-tag">PDF</span>
                 <div class="card-content">
@@ -262,7 +357,8 @@
                 </div>
             </article>
 
-            <article class="project-card">
+            <article class="project-card reveal">
+                <span class="shine" aria-hidden="true"></span>
                 <a class="card-link" href="Files/environment-study.pdf" target="_blank" rel="noopener noreferrer"></a>
                 <span class="card-tag">PDF</span>
                 <div class="card-content">
@@ -272,7 +368,8 @@
                 </div>
             </article>
 
-            <article class="project-card">
+            <article class="project-card reveal">
+                <span class="shine" aria-hidden="true"></span>
                 <a class="card-link" href="Files/vfx-breakdown.pdf" target="_blank" rel="noopener noreferrer"></a>
                 <span class="card-tag">PDF</span>
                 <div class="card-content">
@@ -282,7 +379,8 @@
                 </div>
             </article>
 
-            <article class="project-card">
+            <article class="project-card reveal">
+                <span class="shine" aria-hidden="true"></span>
                 <a class="card-link" href="Files/simulation-tests.pdf" target="_blank" rel="noopener noreferrer"></a>
                 <span class="card-tag">PDF</span>
                 <div class="card-content">
@@ -297,5 +395,59 @@
     <footer>
         <p>&copy; 2026 Tiffany Otoyo. All rights reserved.</p>
     </footer>
+
+    <script>
+      (function () {
+        const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // Soft light that follows the cursor
+        const glow = document.getElementById("cursor-glow");
+        if (finePointer && !reduce && glow) {
+          window.addEventListener("pointermove", (e) => {
+            glow.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)";
+            glow.classList.add("on");
+          }, { passive: true });
+          document.addEventListener("pointerleave", () => glow.classList.remove("on"));
+        }
+
+        // Cards tilt toward the pointer
+        if (finePointer && !reduce) {
+          document.querySelectorAll(".project-card").forEach((card) => {
+            card.addEventListener("pointermove", (e) => {
+              const r = card.getBoundingClientRect();
+              const x = (e.clientX - r.left) / r.width;
+              const y = (e.clientY - r.top) / r.height;
+              card.classList.add("tilting");
+              card.style.transform =
+                "translateY(-12px) rotateX(" + ((0.5 - y) * 10).toFixed(2) + "deg) rotateY(" + ((x - 0.5) * 12).toFixed(2) + "deg)";
+              card.style.setProperty("--mx", (x * 100) + "%");
+              card.style.setProperty("--my", (y * 100) + "%");
+            });
+            card.addEventListener("pointerleave", () => {
+              card.classList.remove("tilting");
+              card.style.transform = "";
+            });
+          });
+        }
+
+        // Cards fade up as they scroll into view
+        const cards = document.querySelectorAll(".reveal");
+        if ("IntersectionObserver" in window && !reduce) {
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach((en, i) => {
+              if (en.isIntersecting) {
+                en.target.style.transitionDelay = (i * 90) + "ms";
+                en.target.classList.add("in");
+                io.unobserve(en.target);
+              }
+            });
+          }, { threshold: 0.15 });
+          cards.forEach((c) => io.observe(c));
+        } else {
+          cards.forEach((c) => c.classList.add("in"));
+        }
+      })();
+    </script>
 </body>
 </html>

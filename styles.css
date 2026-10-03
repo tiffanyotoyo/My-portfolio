@@ -658,7 +658,7 @@ footer p {
 .photo-btn img {
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   transition: opacity 0.25s ease;
 }
@@ -691,3 +691,25 @@ footer p {
     gap: 12px;
   }
 }
+
+
+/* Behance link card (Game Dev page) */
+.behance-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 520px;
+  margin-bottom: 40px;
+  padding: 28px 30px;
+  border: 1px solid rgba(139, 229, 255, 0.3);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  color: #f5f7fb;
+  text-decoration: none;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.behance-card:hover { transform: translateY(-6px); border-color: rgba(139, 229, 255, 0.7); }
+.behance-card:focus-visible { outline: 2px solid #8be5ff; outline-offset: 4px; }
+.behance-label { color: #6fcfff; font-size: 0.8rem; letter-spacing: 0.24em; text-transform: uppercase; }
+.behance-title { font-size: 1.7rem; font-weight: 700; }
+.behance-cta { color: #8be5ff; font-size: 0.95rem; }
